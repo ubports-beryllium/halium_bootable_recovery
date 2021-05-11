@@ -1759,6 +1759,18 @@ int main(int argc, char **argv) {
     setup_adbd();
   }
 
+  // Setup Fake Cache
+  if (ensure_path_mounted("/data") == 0) {
+    property_set("halium.fake.cache", "1"); //Trigger init 'on property:halium.fake.cache=1'
+    char propval[PROPERTY_VALUE_MAX];
+    do
+    {
+      sleep(1);
+      property_get("halium.fake.cache.mount.done", propval, "");
+      printf("halium.fake.cache.mount.done : %s\n", propval);
+    } while (strcmp(propval,"1") != 0);
+  }
+
   std::vector<std::string> args = get_args(argc, argv);
   std::vector<char*> args_to_parse(args.size());
   std::transform(args.cbegin(), args.cend(), args_to_parse.begin(),
