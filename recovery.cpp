@@ -639,7 +639,6 @@ static void finish_recovery() {
     if (ensure_path_mounted(COMMAND_FILE) != 0 || (unlink(COMMAND_FILE) && errno != ENOENT)) {
       LOG(WARNING) << "Can't unlink " << COMMAND_FILE;
     }
-    ensure_path_unmounted(CACHE_ROOT);
   }
 
   sync();  // For good measure.
@@ -1673,7 +1672,6 @@ static void copy_userdata_files() {
         file_copy(adb_keys_data, adb_keys_root);
       }
     }
-    ensure_path_unmounted("/data");
   }
 }
 
