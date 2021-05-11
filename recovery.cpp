@@ -1673,7 +1673,7 @@ static void copy_userdata_files() {
         file_copy(adb_keys_data, adb_keys_root);
       }
     }
-    ensure_path_unmounted("/data");
+    // ensure_path_unmounted("/data");
   }
 }
 
